@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de potencia</title>
+<script> function obtenerdatos(){
+    //extracción de valores del formulario y cálculo
+    var PotenciaDeCalculo=parseFloat(document.getElementById('potencia').value);
+    var FactorDePotencia=parseFloat(document.getElementById('fp').value);
+  //cálculo propiamente dicho
+
+    var Amperes=(PotenciaDeCalculo/(FactorDePotencia*1.73*380)*1000);
+   //esta linea muestran el resultado en el formulario
+    document.registro.amp.value = Amperes;
+    //Tarea: reducir los decimales de los amperes y saber que TC corresponde a esa potencia
+    document.registro.tc.value = 0;
+
+ }
+</script>
+</head>
+<body style="background-color:#9bb0c9;">
+<h1 align="center"><font color="blue">Empresa Provincial de la Energía</font></h1>
+<h2 align="center"><font color="blue">Laboratorio Rafaela</font></h2>
+<h3 align="center"><font color="green">Cálculo de potencia trifásica</font></h3>
+<form name="registro">
+<table border="1">
+<tr>
+<td>Potencia en kW:</td><td><input type="text" name="potencia" id="potencia"></td>
+</tr>
+<tr>
+<td>Factor de potencia:</td><td><input type="text" name="fp" id="fp"></td>
+</tr>
+<tr>
+    <td colspan "2"><input type="button" name="btn1" value="Enviar" onclick="obtenerdatos()"> <button type="reset">Reset</button></td>
+</tr>
+</table>
+<br><br><br>
+
+<table border=""1">
+<tr>
+    <td> Amp:</td><td><input style="color:red" type="text" name="amp" id="amp"></td>
+ </tr>
+ <tr>
+    <td> TC:</td><td><input style="color:red" type="text" name="tc" id="tc"></td>
+ </tr>
+</table>
+</form>
+</center> 
+<p>Tarea: reducir los decimales de los amperes y saber que TC corresponde a esa potencia</p> 
+</body>
+</html>
