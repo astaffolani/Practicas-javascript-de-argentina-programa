@@ -4,50 +4,94 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cálculo de potencia</title>
+    <title>Cálculo de Corriente Trifásica y uso de TC</title>
 <script> function obtenerdatos(){
     //extracción de valores del formulario y cálculo
     var PotenciaDeCalculo=parseFloat(document.getElementById('potencia').value);
-    var FactorDePotencia=parseFloat(document.getElementById('fp').value);
+    var CosenoPhi=parseFloat(document.getElementById('CosenoFi').value);
+    var Tension=parseFloat(document.getElementById('tension').value);
   //cálculo propiamente dicho
 
-    var Amperes=(PotenciaDeCalculo/(FactorDePotencia*1.73*380)*1000);
-   //esta linea muestran el resultado en el formulario
-    document.registro.amp.value = Amperes;
-    //Tarea: reducir los decimales de los amperes y saber que TC corresponde a esa potencia
-    document.registro.tc.value = 0;
+    //otra formula: var Amperes=Math.round((PotenciaDeCalculo/(FactorDePotencia*1.73*Tension)*1000));
+    var Amperes=Math.round((PotenciaDeCalculo*1000)/(1.73*Tension*CosenoPhi));
+     
 
+        if (Amperes<=45){
+           var tc='50/5'
+            
+        }
+        else if (Amperes<=80){
+            var tc='100/5'
+         
+        }
+        else if (Amperes<=160){
+            var tc='200/5'
+         
+        }
+            else if (Amperes<=260){
+            var tc='300/5'
+        }
+        
+        else if (Amperes<=550){
+            var tc='600/5'
+        }
+        else if (Amperes>950){
+        alert("Supera el nivel de corriente permitido en baja tensión")
+        var tc='excedido de carga'
+        }
+        else{ 
+                   var tc='1000/5'
+        }
+        
+   //esta linea muestran el resultado en el formulario
+    document.registro.corriente.value = Amperes;
+    //Tarea: reducir los decimales de los amperes y saber que TC corresponde a esa potencia
+    document.registro.tc.value = tc;
  }
 </script>
 </head>
 <body style="background-color:#9bb0c9;">
 <h1 align="center"><font color="blue">Empresa Provincial de la Energía</font></h1>
 <h2 align="center"><font color="blue">Laboratorio Rafaela</font></h2>
-<h3 align="center"><font color="green">Cálculo de potencia trifásica</font></h3>
+<h3 align="center"><font color="green">Cálculo de Corriente Trifásica y uso de TC</font></h3>
 <form name="registro">
 <table border="1">
 <tr>
 <td>Potencia en kW:</td><td><input type="text" name="potencia" id="potencia"></td>
 </tr>
 <tr>
-<td>Factor de potencia:</td><td><input type="text" name="fp" id="fp"></td>
+<td>Factor de Potencia:</td><td><input type="text" name="fp" id="CosenoFi"></td>
 </tr>
 <tr>
-    <td colspan "2"><input type="button" name="btn1" value="Enviar" onclick="obtenerdatos()"> <button type="reset">Reset</button></td>
+    <td>
+Nivel de Tensión en Volts:</td><td>
+    <select name="combo" id="tension">
+        <!-- Opciones de la lista -->
+        <option value="380" selected>380</option><!-- Opción por defecto -->
+        <option value="13200">13200</option> 
+        <option value="33000">33000</option>
+    </select>
+</td>
+    </td>
 </tr>
+
+<tr>
+    <td colspan "2"><input type="button" name="btn1" value="Enviar" onclick="obtenerdatos()"> 
+        <button type="reset">Reset</button></td>
+</tr>
+
 </table>
 <br><br><br>
 
 <table border=""1">
 <tr>
-    <td> Amp:</td><td><input style="color:red" type="text" name="amp" id="amp"></td>
+    <td> Corriente en Amperes:</td><td><input style="color:red" type="text" name="amp" id="corriente"></td>
  </tr>
  <tr>
-    <td> TC:</td><td><input style="color:red" type="text" name="tc" id="tc"></td>
+    <td> TC a utilizar:</td><td><input style="color:red" type="text" name="tc" id="tc"></td>
  </tr>
 </table>
 </form>
 </center> 
-<p>Tarea: reducir los decimales de los amperes y saber que TC corresponde a esa potencia</p> 
 </body>
 </html>
